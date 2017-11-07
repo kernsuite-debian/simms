@@ -1,3 +1,9 @@
+simms (0.9.7-1kern1) xenial; urgency=medium
+
+  * new upstream release
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 07 Nov 2017 17:18:52 +0200
+
 simms (0.9.1-1) xenial; urgency=low
 
   * Initial release
