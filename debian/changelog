@@ -1,3 +1,13 @@
+simms (1.0.2-1kern1) bionic; urgency=medium
+
+  [ Gijs Molenaar ]
+  * more cleaning
+
+  [ Athanaseus Javas Ramaila ]
+  * New upstream version 1.0.2
+
+ -- KERN packaging <packaging@kernsuite.info>  Fri, 18 May 2018 11:51:42 +0000
+
 simms (0.9.7-1kern1) xenial; urgency=medium
 
   * new upstream release
