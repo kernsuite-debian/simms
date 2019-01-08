@@ -1,3 +1,10 @@
+simms (1.0.6-1) bionic; urgency=medium
+
+  [ Gijs Molenaar ]
+  * New upstream version 1.0.6
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 08 Jan 2019 16:24:39 +0200
+
 simms (1.0.2-1kern1) bionic; urgency=medium
 
   [ Gijs Molenaar ]
