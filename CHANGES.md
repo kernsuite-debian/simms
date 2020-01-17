@@ -11,3 +11,9 @@ Changes since 0.6.0
 
 # 1.0.3
 - Fix interface to when auto-setting VLA configurations.
+
+# 1.0.7
+- Fix synthesis time when scan_legth is a scalar
+
+# 1.0.8
+- Add option to optimise observation start time
