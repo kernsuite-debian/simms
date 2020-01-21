@@ -3,8 +3,11 @@
 
 export DH_VERBOSE=1
 
+# Otherwise the usr/bin/simms file is from python3
+export PYBUILD_INSTALL_ARGS_python3 = --install-scripts=/dev/null
+
 %:
-	dh $@ --with python2,python3 --buildsystem pybuild
+	dh $@ --with python2,python3 --buildsystem=pybuild --parallel
 
 override_dh_auto_clean:
 	dh_auto_clean
