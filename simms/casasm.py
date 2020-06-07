@@ -52,20 +52,20 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
            scan_length=0,dtime=10,
            freq0=700e6,dfreq=50e6,nchan=1,
            nbands=1,
-           start_time=None,
            stokes='RR RL LR LL',
            feed="perfect R L",
            noise=0,
-           setlimits=False,
+           setlimits=False, # Deprecated
            elevation_limit=None,
            shadow_limit=None,
            outdir=None,
            coords='itrf',           
            lon_lat=None,
+           optimise_start=False,
            date=None,
            noup=False,
            auto_corr=False,
-           scan_lag=0):
+           scan_lag=0): # Deprecated
     """ Creates an empty measurement set using CASA simulate (sm) tool. """
 
 
@@ -152,7 +152,10 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
 
     # set date to today (start of observation) if not set by user
     # The actual start time will be set internally by CASA depending on when the field transits
-    use_ha = False
+    if optimise_start:
+        use_ha = True
+    else:
+        use_ha = False
     if date in (None, "None"):
         td = time.gmtime()
         date = "UTC,{0:d}/{1:d}/{02:d}".format(td.tm_year, td.tm_mon, td.tm_mday)
@@ -173,7 +176,13 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
     else:
         nscans = 0
 
+
     synthesis *= 3600
+
+    if nscans == 1 and scan_length[0] < synthesis:
+        nscans = np.int( np.ceil( synthesis/scan_length[0] ) )
+        scan_length = scan_length*(nscans)
+    
     if ndir>=1:
         # if scan legth is not set, set it to equal the synthesis time
         if nscans == 0:
@@ -210,7 +219,7 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
                stokes= stokes)
 
         # Set field information
-        start_time = 0.0
+        start_time = 0.0 - sum(scan_length)/2.0
         for fid,field in enumerate(direction):
             field = field.split(",")
             fname = sourcename="{0:02d}".format(fid)
@@ -227,21 +236,11 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
     me.doframe(obs_pos)
 
     if sm.done():
-        print "Empty MS '{}' created".format(msname)
+        print("Empty MS '{}' created".format(msname))
     else:
          raise RuntimeError('Failed to create MS. Look at the log file. '
                             'Double check you settings. If you feel this '
                             'is due a to bug, raise an issue on https://github.com/SpheMakh/simms')
-
-    # Clear all flags if limits were not  set
-    if not setlimits:
-        tb.open(msname, nomodify=False)
-        flags = tb.getcol("FLAG")
-        if flags.sum() > 0:
-            flags[...] = False
-            tb.putcol("FLAG", flags)
-        tb.close()
-
 
     if validate(msname):
         return msname
@@ -252,7 +251,7 @@ def makems(msname=None,label=None,tel='MeerKAT',pos=None,pos_type='CASA',
 def validate(msname):
 
     # Run a few tests on the MS, see if its valid.
-    print "Validating %s ..."%msname
+    print("Validating %s ..."%msname)
     validated = False
 
     try:
@@ -277,8 +276,7 @@ def validate(msname):
         return False
     
     if validated:
-        print "MS validated"
+        print("MS validated")
         return True
     else:
         return False
-
