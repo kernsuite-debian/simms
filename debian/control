@@ -2,16 +2,35 @@ Source: simms
 Section: science
 Priority: optional
 Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
-Build-Depends: debhelper (>= 8.0.0), dh-python, python, python-setuptools
-Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9),
+               dh-python,
+               python,
+               python3,
+               python-setuptools,
+               python3-setuptools
+Standards-Version: 4.4.1
 Homepage: https://github.com/radio-astro/simms
 Vcs-Git: git://github.com/kernsuite-debian/simms.git
 Vcs-Browser: https://github.com/kernsuite-debian/simms
 X-Python-Version: >= 2.7
+X-Python3-Version: >= 3.6
+
+Package: python-simms
+Architecture: any
+Provides: ${python:Provides}
+Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends},
+ casalite, python-numpy, python-casacore
+Description: Creates empty measurement sets using the the CASA simulate tool
+
+Package: python3-simms
+Architecture: any
+Provides: ${python3:Provides}
+Depends: ${shlibs:Depends}, ${python3:Depends}, ${misc:Depends},
+ casalite, python3-numpy, python3-casacore
+Description: Creates empty measurement sets using the the CASA simulate tool
 
 Package: simms
 Architecture: any
 Provides: ${python:Provides}
-Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends}, casalite,
- python-numpy, python-casacore
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3-simms
 Description: Creates empty measurement sets using the the CASA simulate tool
