@@ -4,23 +4,13 @@ Priority: optional
 Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
 Build-Depends: debhelper (>= 9),
                dh-python,
-               python,
                python3,
-               python-setuptools,
                python3-setuptools
-Standards-Version: 4.4.1
-Homepage: https://github.com/radio-astro/simms
+Standards-Version: 4.5.0
+Homepage: https://github.com/ratt-ru/simms
 Vcs-Git: git://github.com/kernsuite-debian/simms.git
 Vcs-Browser: https://github.com/kernsuite-debian/simms
-X-Python-Version: >= 2.7
-X-Python3-Version: >= 3.6
-
-Package: python-simms
-Architecture: any
-Provides: ${python:Provides}
-Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends},
- casalite, python-numpy, python-casacore
-Description: Creates empty measurement sets using the the CASA simulate tool
+XS-Python3-Version: >= 3.6
 
 Package: python3-simms
 Architecture: any

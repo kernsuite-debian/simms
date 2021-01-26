@@ -1,3 +1,11 @@
+simms (1.2.0-1kern2) focal; urgency=medium
+
+  [ Athanaseus Javas Ramaila]
+  * Only support Python3
+  * Build for KERN-7 (focal)
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 19 Jan 2021 15:50:56 +0000
+
 simms (1.2.0-1kern1) bionic; urgency=medium
 
   [ Athanaseus Javas Ramaila]
